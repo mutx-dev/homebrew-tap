@@ -1,30 +1,30 @@
-# Homebrew Tap for mutx
+# MUTX Homebrew Tap
 
-Unofficial Homebrew tap for the [mutx](https://mutx.dev) CLI.
+Third-party Homebrew distribution for the MUTX Python CLI and first-party Textual TUI.
 
-## Installation
+## Install
 
 ```bash
-brew tap mutx-dev/tap
+brew tap mutx-dev/homebrew-tap
 brew install mutx
 ```
 
-## Usage
+## Smoke check
 
 ```bash
 mutx --help
 mutx status
-mutx login
+mutx tui
 ```
 
-## Development
+`mutx` reads the existing CLI config from `~/.mutx/config.json`, including `api_url`, `api_key`, and `refresh_token`.
 
-Formula files are in the `Formula/` directory.
+## Release process
 
-To update the formula after a new release:
-1. Update the `url` and `sha256` in the formula
-2. Update the `version`
+1. Bump the CLI version in the monorepo `pyproject.toml`.
+2. Push the monorepo release to `main`.
+3. Create and push the matching `cli-vX.Y.Z` tag.
+4. Update `Formula/mutx.rb` to the new tag tarball and checksum.
+5. Commit and push the tap repo update.
 
-## License
-
-MIT
+The formula test must remain non-networked. Keep it on `mutx status` or `mutx --help`.
